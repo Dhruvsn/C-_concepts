@@ -100,7 +100,7 @@ public:
 int main()
 {
     // This construct has two arguments. Second argument is
-    // initialized with a value of 0 Now we can call the
+    // initialized with a value of 0 Now we can call the 
     // constructor in two possible ways.
     A obj1(10, 20);
     A obj2(5);

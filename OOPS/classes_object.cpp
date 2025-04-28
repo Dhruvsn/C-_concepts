@@ -148,36 +148,36 @@ using namespace std;
 // };
 //----------------------------------------------------------------------------------------------------------------------
 // Example of this operator.
-class Teacher
-{
-public:
-    string name;
-    string dept;
-    string subject;
-    // constructor
-    Teacher(string name, string dept, string subject)
-    {
-        this->name = name;
-        this->dept = dept;
-        this->subject = subject;
-    }
+// class Teacher
+// {
+// public:
+//     string name;
+//     string dept;
+//     string subject;
+//     // constructor
+//     Teacher(string name, string dept, string subject)
+//     {
+//         this->name = name;
+//         this->dept = dept;
+//         this->subject = subject;
+//     }
 
-    // copy construcotr
-    Teacher(Teacher &orgobj) // this is by refernce
-    {
-        cout << "i am custom copy constructor ...\n";
-        this->name = orgobj.name;
-        this->dept = orgobj.dept;
-        this->subject = orgobj.subject;
-    }
+//     // copy construcotr
+//     Teacher(Teacher &orgobj) // this is by refernce
+//     {
+//         cout << "i am custom copy constructor ...\n";
+//         this->name = orgobj.name;
+//         this->dept = orgobj.dept;
+//         this->subject = orgobj.subject;
+//     }
 
-    void display()
-    {
-        cout << "name: " << this->name << endl;
-        cout << "dept: " << this->dept << endl;
-        cout << "subject: " << this->subject << endl;
-    }
-};
+//     void display()
+//     {
+//         cout << "name: " << this->name << endl;
+//         cout << "dept: " << this->dept << endl;
+//         cout << "subject: " << this->subject << endl;
+//     }
+// };
 
 // int main()
 // {
@@ -251,45 +251,151 @@ public:
 //     s2.getInfo();
 //     s1.getInfo();
 // };
+//----------------------------------------------------------------------------------------------
 
 // Deep copy constructor example:
 
-class Student
+// class Student
+// {
+// public:
+//     string *nameptr;
+//     double *cgpaptr;
+
+//     Student(string name, double cgpa)
+//     {
+//         nameptr = new string;
+//         *nameptr = name;
+//         cgpaptr = new double;
+//         *cgpaptr = cgpa;
+//     }
+
+//     Student(Student &orgObj)
+//     {
+//         nameptr = new string;
+//         *nameptr = *orgObj.nameptr;
+//         cgpaptr = new double;
+//         *cgpaptr = *orgObj.cgpaptr;
+//     }
+
+//     void getInfo()
+//     {
+//         cout << "Name: " << *nameptr << endl;
+//         cout << "cgpa: " << *cgpaptr << endl;
+//     }
+// };
+
+// int main()
+// {
+//     Student s1("Dhruv", 8.0);
+//     Student s2(s1);
+//     s1.getInfo();
+//     cout << "\n";
+//     *(s2.nameptr) = "Aryan";
+//     *(s2.cgpaptr) = 9.0;
+//     s2.getInfo();
+// }
+//-------------------------------------------------------------------------------------------------
+
+/*
+    # Destructor :
+        -- Destructor deallocate the memory that is prowided during creation of constructor.
+
+    Syntax:
+        ~className(){}
+
+     # Disadvantage of not using Destructor is : memory leak
+
+*/
+// Example:
+
+// class Student
+// {
+// public:
+//     string *nameptr;
+//     double *cgpaptr;
+
+//     Student(string name, double cgpa)
+//     {
+//         nameptr = new string;
+//         *nameptr = name;
+//         cgpaptr = new double;
+//         *cgpaptr = cgpa;
+//     }
+
+//     Student(Student &orgObj)
+//     {
+//         nameptr = new string;
+//         *nameptr = *orgObj.nameptr;
+//         cgpaptr = new double;
+//         *cgpaptr = *orgObj.cgpaptr;
+//     }
+
+//     // destructor
+//     ~Student()
+//     {
+//         cout << "Hi, I delete everything\n";
+//         delete cgpaptr, nameptr;
+//     }
+
+//     void getInfo()
+//     {
+//         cout << "Name: " << *nameptr << endl;
+//         cout << "cgpa: " << *cgpaptr << endl;
+//     }
+// };
+
+// int main()
+// {
+//     Student s1("Dhruv", 8.0);
+//     s1.getInfo();
+//     return 0;
+// }
+//----------------------------------------------------------------------------------------------
+/*
+    # Inheritance
+      -- When a properties & member functions of base class are passed on to the derived class.
+      -- it allow in code reusability.
+
+*/
+// Example:
+class Person
 {
 public:
-    string *nameptr;
-    double *cgpaptr;
+    string name;
+    int age;
 
-    Student(string name, double cgpa)
+    // Person(string name, int age)
+    // {
+    //     this->name = name;
+    //     this->age = age;
+    // }
+    Person(string name, int age)
     {
-        nameptr = new string;
-        *nameptr = name;
-        cgpaptr = new double;
-        *cgpaptr = cgpa;
+        this->name = name;
+        this->age = age;
     }
+};
 
-    Student(Student &orgObj)
+class student : public Person
+{
+public:
+    int Roll_no;
+
+    student(string name, int age, int Roll_no) : Person(name, age)
     {
-        nameptr = new string;
-        *nameptr = *orgObj.nameptr;
-        cgpaptr = new double;
-        *cgpaptr = *orgObj.cgpaptr;
     }
 
     void getInfo()
     {
-        cout << "Name: " << *nameptr << endl;
-        cout << "cgpa: " << *cgpaptr << endl;
+        cout << "Name: " << name << endl;
+        cout << "age: " << age << endl;
+        cout << "Roll.no: " << Roll_no << endl;
     }
 };
 
 int main()
 {
-    Student s1("Dhruv", 8.0);
-    Student s2(s1);
+    student s1("rahul kumar", 21, 1234);
     s1.getInfo();
-    cout << "\n";
-    *(s2.nameptr) = "Aryan";
-    *(s2.cgpaptr) = 9.0;
-    s2.getInfo();
+    return 0;
 }

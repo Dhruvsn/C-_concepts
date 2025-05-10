@@ -52,37 +52,121 @@ using namespace std;
 //-----------------------------------------------------------------------------------------------------
 // Function Overriding
 
-class Parent
+// class Parent
+// {
+// public:
+//     void show()
+//     {
+//         cout << "Parent class\n";
+//     }
+//     virtual void hello()
+//     {
+//         cout << "Hello from parent\n";
+//     }
+// };
+
+// class child : public Parent
+// {
+// public:
+//     void show()
+//     {
+//         cout << "Child class\n";
+//     }
+
+//     void hello()
+//     {
+//         cout << "hello from child\n";
+//     }
+// };
+
+// int main()
+// {
+//     child c1;
+//     c1.show();
+//     c1.hello();
+//     return 0;
+// }
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+using namespace std;
+
+class Shape
 {
 public:
-    void show()
+    virtual double area()
     {
-        cout << "Parent class\n";
+        return 0;
     }
-    virtual void hello()
+
+    void displayArea()
     {
-        cout << "Hello from parent\n";
+        cout << "Area: " << area() << endl;
+    }
+
+    // ✅ Virtual destructor added
+    virtual ~Shape()
+    {
+        cout << "Shape Destructor Called" << endl;
     }
 };
 
-class child : public Parent
+class Circle : public Shape
 {
+private:
+    double radius;
+
 public:
-    void show()
+    Circle(double r)
     {
-        cout << "Child class\n";
+        radius = r;
     }
 
-    void hello()
+    double area() override
     {
-        cout << "hello from child\n";
+        return 3.14 * radius * radius;
+    }
+
+    ~Circle()
+    {
+        cout << "Circle Destructor Called" << endl;
+    }
+};
+
+class Rectangle : public Shape
+{
+private:
+    double length, width;
+
+public:
+    Rectangle(double l, double w)
+    {
+        length = l;
+        width = w;
+    }
+
+    double area() override
+    {
+        return length * width;
+    }
+
+    ~Rectangle()
+    {
+        cout << "Rectangle Destructor Called" << endl;
     }
 };
 
 int main()
 {
-    child c1;
-    c1.show();
-    c1.hello();
+    Shape *s1 = new Circle(5.0);
+    Shape *s2 = new Rectangle(4.0, 6.0);
+
+    s1->displayArea();
+    s2->displayArea();
+
+    delete s1; // Correctly calls Circle's destructor and Shape's
+    delete s2; // Correctly calls Rectangle's destructor and Shape's
+
     return 0;
 }
